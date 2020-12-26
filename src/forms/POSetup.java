@@ -244,7 +244,7 @@ public class POSetup extends JExtendedFrame{
             try
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlupdate("UPDATE gr_muveletterv SET gr_muveletterv.gepszam = '"
                         + ComboVAL(Szerszamok) + "' "
                         + "WHERE gr_muveletterv.azon = '"
@@ -327,7 +327,7 @@ public class POSetup extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             int hosz = Filter.getText().length();
             String sqlCmd = "";
             if (GrFilter.isSelected())
@@ -509,7 +509,7 @@ public class POSetup extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

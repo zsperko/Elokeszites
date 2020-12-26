@@ -194,7 +194,7 @@ public class MROptions extends JExtendedFrame implements TableModelListener{
             try
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlolvas("SELECT anyagigenybeallitas.azon,kosp.megnevezes," +
                          "anyagtipus.megnevezes, anyagigenybeallitas.anyagigeny " +
                          "FROM anyagigenybeallitas " +
@@ -264,7 +264,7 @@ public class MROptions extends JExtendedFrame implements TableModelListener{
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
             conn.setAutoCommit(false);
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("UPDATE anyagigenybeallitas SET anyagigeny = '" + value + "' " +
                       "WHERE azon = '" + index + "'");
             conn.commit();
@@ -288,7 +288,7 @@ public class MROptions extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

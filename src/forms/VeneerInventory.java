@@ -337,7 +337,7 @@ public class VeneerInventory extends JExtendedFrame{
             try
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlolvas("SELECT cikkszam,mennyiseg FROM furnerraktar WHERE " +
                          "rakatszam = '" + Rakatszam.getText() + "'");
                 if (rSet.next())
@@ -420,7 +420,7 @@ public class VeneerInventory extends JExtendedFrame{
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
                 conn.setAutoCommit(false);
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlolvas("SELECT rakatszam FROM furnerleltar WHERE rakatszam = '" +
                          Rakatszam.getText() + "'");
                 if (rSet.next())
@@ -585,7 +585,7 @@ public class VeneerInventory extends JExtendedFrame{
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
                     conn.setAutoCommit(false);
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     sqlupdate("DELETE furnerleltar.* FROM furnerleltar " +
                               "WHERE furnerleltar.rakatszam = '" +
                               Leltarlista.getValueAt(Leltarlista.getSelectedRow(), 0).toString() + "'");
@@ -634,7 +634,7 @@ public class VeneerInventory extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT furnerleltar.rakatszam,furnerleltar.cikkszam," +
                      "furnerleltar.mennyiseg FROM furnerleltar");
             if (rSet.next())
@@ -670,7 +670,7 @@ public class VeneerInventory extends JExtendedFrame{
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
             combo.setModel (new DefaultComboBoxModel ());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

@@ -330,7 +330,7 @@ public class Tools extends JExtendedFrame{
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
                     conn.setAutoCommit(false);
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     sqlolvas("SELECT azon FROM gr_muveletterv WHERE gepszam = '" +
                              gepekTabla.getValueAt(gepekTabla.getSelectedRow(), 0).toString() + "'");
                     if (rSet.next())
@@ -374,7 +374,7 @@ public class Tools extends JExtendedFrame{
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
                     conn.setAutoCommit(false);
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     sqlolvas("SELECT azon FROM szerszamok WHERE szam = '" +
                              Gepszam.getText() + "'");
                     if (rSet.next())
@@ -418,7 +418,7 @@ public class Tools extends JExtendedFrame{
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
                     conn.setAutoCommit(false);
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     sqlolvas("SELECT azon FROM szerszamok WHERE szam = '" +
                              Gepszam.getText() + "' AND azon <> '" +
                              gepekTabla.getValueAt(gepekTabla.getSelectedRow(), 0).toString() + "'");
@@ -466,7 +466,7 @@ public class Tools extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {
@@ -552,7 +552,7 @@ public class Tools extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             int hosz = gepszamFilter.getText().length();
             sqlolvas("SELECT szerszamok.azon,szerszamok.szam,szerszamok.megnevezes," +
                      "szerszamok.muhelykod,muhelyek.szam,muhelyek.megnevezes FROM " +

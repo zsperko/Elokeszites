@@ -225,7 +225,7 @@ public class POPlanner extends JExtendedFrame{
         {
             Configuration cfg = new Configuration();
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("DELETE tervezotabla.* FROM tervezotabla WHERE datum = '"
                     + cfg.sqlDate(Datum.getDate()) + "' AND muszak >= '"
                     + ComboID(Shift) + "'");
@@ -266,7 +266,7 @@ public class POPlanner extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Dátum");
             model.addColumn("Műszak");
@@ -442,7 +442,7 @@ public class POPlanner extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("DELETE gepekdolgozok.* FROM gepekdolgozok");
             sqlupdate("INSERT INTO gepekdolgozok (gepekdolgozok.datum,gepekdolgozok.muszak,"
                     + "gepekdolgozok.dszam,gepekdolgozok.muhelyazon) SELECT napiterv.datum,"
@@ -489,7 +489,7 @@ public class POPlanner extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             String sqlCmd = "SELECT gr_muveletterv.azon,szerszamok.azon AS szerszamazon,"
                           + "(gyartasirend.mennyiseg - gr_muveletterv.befejezettmennyiseg) AS maradek,"
                           + "cikktorzs.utem,gyartasirend.kezddatum FROM gr_muveletterv "
@@ -619,7 +619,7 @@ public class POPlanner extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             String sqlCmd = "SELECT tervezotabla.azon,gr_muveletterv.grszam,gyartasirend.cikkszam,tervezotabla.mennyiseg,"
                           + "cikktorzs.utem,muhelyek.szam,szerszamok.szam,tervezotabla.feszek "
                           + "FROM tervezotabla INNER JOIN muszakok ON (tervezotabla.muszak = muszakok.azon) "
@@ -711,7 +711,7 @@ public class POPlanner extends JExtendedFrame{
         try
         {            
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("DELETE tervezotabla.* FROM tervezotabla WHERE datum = '"
                     + cfg.sqlDate(Datum.getDate()) + "' AND muszak >= '"
                     + ComboID(Shift) + "'");
@@ -767,7 +767,7 @@ public class POPlanner extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

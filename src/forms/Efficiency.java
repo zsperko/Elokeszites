@@ -185,7 +185,7 @@ public class Efficiency extends JExtendedFrame{
             String tableName = "temp_hatekonysag";
             rSet = null;
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SHOW TABLES LIKE '" + tableName + "'");
             if (rSet.next())
             {
@@ -248,7 +248,7 @@ public class Efficiency extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

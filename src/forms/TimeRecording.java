@@ -267,7 +267,7 @@ public class TimeRecording extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT dtorzs.nev,teljesitmenyek.grszam,gyartasirend.cikkszam,"
                    + "gr_muveletterv.megnevezes,"
                    + "sum(teljesitmenyek.tervmennyiseg) AS terv,"
@@ -337,7 +337,7 @@ public class TimeRecording extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT dszam,nev,muszak,terv,teny FROM ("
                    + "SELECT teljesitmenyek.dszam,dtorzs.nev,seged.megnevezes as muszak,"
                    + "(sum((teljesitmenyek.tervmennyiseg * gr_muveletterv.szemelyido)) / 480) AS terv,"
@@ -497,7 +497,7 @@ public class TimeRecording extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

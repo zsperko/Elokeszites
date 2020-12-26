@@ -178,7 +178,7 @@ public final class LoginBox extends JDialog implements ActionListener{
                 try
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     rSet = null;
                     rSet = stmt.executeQuery("SELECT COUNT(username) as username FROM users WHERE username = '" +
                                              userName.getText() + "'");

@@ -244,7 +244,7 @@ public class WorkPlaces extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             int hosz = dszamFilter.getText().length();
             sqlolvas("SELECT azon,dszam,nev FROM dtorzs WHERE dtorzs.elment = 0 " +
                      "AND LEFT(dtorzs.dszam,'" + hosz + "') = '" + dszamFilter.getText() + "' " +
@@ -290,7 +290,7 @@ public class WorkPlaces extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT dolgozok.azon,dolgozok.dszam,dtorzs.nev,kosp.megnevezes " +
                      "FROM dtorzs INNER JOIN dolgozok ON (dtorzs.dszam = dolgozok.dszam) " +
                      "INNER JOIN kosp ON (dolgozok.munkahely = kosp.azon) " +
@@ -340,7 +340,7 @@ public class WorkPlaces extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {
@@ -456,7 +456,7 @@ public class WorkPlaces extends JExtendedFrame{
                         {
                             conn = DriverManager.getConnection(cfg.getsqlConn());
                             conn.setAutoCommit(false);
-                            stmt = conn.createStatement();
+                            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                             int i = 0;
                             while (i < dtorzsTabla.getSelectedRows().length)
                             {
@@ -491,7 +491,7 @@ public class WorkPlaces extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             int i = 0;
             while (i < dtorzsTabla.getSelectedRows().length)
             {
@@ -529,7 +529,7 @@ public class WorkPlaces extends JExtendedFrame{
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
                 conn.setAutoCommit(false);
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 if (cfg.getchangeEnable())
                 {
                     sqlupdate("DELETE dolgozok.* FROM dolgozok WHERE munkahely = '" +

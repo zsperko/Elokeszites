@@ -105,7 +105,7 @@ public class SaveData implements Runnable{
             XLStabla = new JTable();
             Configuration cfg = new Configuration();
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlComm);
             if (rSet.next())
             {

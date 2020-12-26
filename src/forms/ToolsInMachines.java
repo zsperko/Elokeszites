@@ -231,7 +231,7 @@ public class ToolsInMachines extends JExtendedFrame{
                 Configuration cfg = new Configuration();
                 int i = (Zarolt.isSelected() ? 1 : 0);
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlupdate("UPDATE szerszamokmuhelyben SET szerszamazon = '"
                         + ComboID(Szerszamok) + "',"
                         + "megjegyzes = '" + Megjegyzes.getText() + "',"
@@ -289,7 +289,7 @@ public class ToolsInMachines extends JExtendedFrame{
         {
             Configuration cfg = new Configuration();
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT azon,szam,feszek FROM muhelyek WHERE tervezes = 1 ORDER BY szam");
             rSet.last();
             Squares = new MachinesRectangle[rSet.getRow()];
@@ -354,7 +354,7 @@ public class ToolsInMachines extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

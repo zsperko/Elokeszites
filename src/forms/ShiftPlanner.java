@@ -311,7 +311,7 @@ public class ShiftPlanner extends JExtendedFrame{
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
                     conn.setAutoCommit(false);
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     String sqlTmp = "";
                     int i = 0;
                     while (i < Workers.getRowCount())
@@ -369,7 +369,7 @@ public class ShiftPlanner extends JExtendedFrame{
                 try
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     for (int i = 0;i < Shifts.getSelectedRowCount();i++)
                     {
                         sqlupdate("DELETE muszakbeosztas.* FROM muszakbeosztas WHERE "
@@ -440,7 +440,7 @@ public class ShiftPlanner extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             String sqlComm = "SELECT dtorzs.azon,dtorzs.dszam,dtorzs.nev FROM "
                            + "dtorzs INNER JOIN dolgozok ON (dtorzs.dszam = dolgozok.dszam) "
                            + "WHERE dolgozok.munkahely = '"
@@ -510,7 +510,7 @@ public class ShiftPlanner extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT muszakbeosztas.azon,muszakbeosztas.dszam,dtorzs.nev,muszakok.megnevezes,"
                    + "muszakbeosztas.datum FROM muszakbeosztas "
                    + "INNER JOIN dtorzs ON (muszakbeosztas.dszam = dtorzs.dszam) "
@@ -587,7 +587,7 @@ public class ShiftPlanner extends JExtendedFrame{
         {
             Configuration cfg = new Configuration();
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             int i = 0;
             while (i < Workers.getRowCount())
             {
@@ -632,7 +632,7 @@ public class ShiftPlanner extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

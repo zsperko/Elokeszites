@@ -380,7 +380,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
                 try
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     sqlupdate("INSERT INTO napiterv (napiterv.datum,napiterv.muszak,napiterv.dszam,"
                             + "napiterv.grmuvazon,napiterv.muhelyazon,napiterv.mennyiseg) "
                             + "SELECT tervezotabla.datum,tervezotabla.muszak,'"
@@ -417,7 +417,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("DELETE napiterv.* FROM napiterv WHERE napiterv.datum = '"
                     + cfg.sqlDate(Datum.getDate()) + "' AND napiterv.muszak = '"
                     + ComboID(Muszak)
@@ -448,7 +448,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
             String tableName = "temp_napiterv";
             rSet = null;
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT min(napiterv.datum) AS nextdate FROM napiterv WHERE napiterv.datum > '"
                    + cfg.sqlDate(date) + "' ");
             if (rSet.next())
@@ -519,7 +519,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
             String tableName = "muszakteljesit";
             rSet = null;
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SHOW TABLES LIKE '" + tableName + "'");
             if (rSet.next())
             {
@@ -604,7 +604,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT muhelyek.azon,muhelyek.szam,muhelyek.megnevezes,0 FROM tervezotabla "
                    + "INNER JOIN muhelyek ON (tervezotabla.gepazon = muhelyek.azon) WHERE "
                    + "muhelyek.ktghely = '"
@@ -692,7 +692,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT napiterv.azon,dtorzs.dszam,dtorzs.nev,gyartasirend.rendszam," +
                      "gyartasirend.cikkszam,gr_muveletterv.megnevezes AS muvelet," +
                      "muhelyek.szam,muhelyek.megnevezes AS muhelynev,napiterv.mennyiseg " +
@@ -800,7 +800,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT dtorzs.dszam,dtorzs.nev," +
                      "(sum((gr_muveletterv.szemelyido * napiterv.mennyiseg)) / 480) AS terheles " +
                      "FROM napiterv INNER JOIN dtorzs ON (napiterv.dszam = dtorzs.dszam) " +
@@ -872,7 +872,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
         {
             combo.removeAllItems();
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {
@@ -932,7 +932,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
             try
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 String sqlCmd;
                 sqlCmd = "SELECT gr_muveletterv.grszam,gr_muveletterv.muveletkapcsolo,gr_muveletterv.azon,"
                        + "gyartasirend.cikkszam,gr_muveletterv.megnevezes,gr_muveletterv.muhelykod,"
@@ -1205,7 +1205,7 @@ public class DailyPlan extends JExtendedFrame implements TableModelListener{
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
             conn.setAutoCommit(false);
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("UPDATE napiterv SET mennyiseg = '" + value + "' " +
                       "WHERE azon = '" + index + "'");
             conn.commit();

@@ -1166,7 +1166,7 @@ public class MainFrame extends JFrame{
             {
                 rSet = null;
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 rSet = stmt.executeQuery("SELECT role FROM roles WHERE userazon = '" +
                                          cfg.getcurrentUser() + "' AND urlapazon = '" +
                                          formID + "'");

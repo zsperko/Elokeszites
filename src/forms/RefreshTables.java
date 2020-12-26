@@ -264,7 +264,7 @@ public class RefreshTables extends JExtendedFrame{
         {
             rSet = null;
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT ertek FROM opciok WHERE opszam = 1");
             if (rSet.next())
             {

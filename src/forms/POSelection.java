@@ -281,7 +281,7 @@ public class POSelection extends JExtendedFrame implements TableModelListener{
             try
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlupdate("UPDATE gr_muveletterv SET kijelolt = 0");
                 conn.close();
             }
@@ -309,7 +309,7 @@ public class POSelection extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             int hosz = Filter.getText().length();
             String sqlCmd = "";
             if (GrFilter.isSelected())
@@ -506,7 +506,7 @@ public class POSelection extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             for (int i = 0;i < GRlista.getRowCount();i++)
             {
                 sqlolvas("SELECT gr_muveletterv.gepszam,muhelyek.szam FROM gr_muveletterv "
@@ -540,7 +540,7 @@ public class POSelection extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {
@@ -600,7 +600,7 @@ public class POSelection extends JExtendedFrame implements TableModelListener{
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
             conn.setAutoCommit(false);
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("UPDATE gr_muveletterv SET kijelolt = '" + value + "' " +
                       "WHERE azon = '" + index + "'");
             conn.commit();

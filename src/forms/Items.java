@@ -231,7 +231,7 @@ public class Items extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT utem FROM cikktorzs WHERE cikkszam = '" +
                       Cikkszam.getSelectedItem().toString() + "'");
             Mennyiseg.setText("0");
@@ -293,7 +293,7 @@ public class Items extends JExtendedFrame{
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
                     conn.setAutoCommit(false);
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     sqlupdate("UPDATE cikktorzs SET utem = '" + Mennyiseg.getText() + "' " +
                               "WHERE cikkszam = '" +  Cikkszam.getSelectedItem().toString() + "'");
                     conn.commit();
@@ -337,7 +337,7 @@ public class Items extends JExtendedFrame{
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
             combo.setModel (new DefaultComboBoxModel ());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

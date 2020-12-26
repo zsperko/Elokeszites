@@ -255,7 +255,7 @@ public class DailyPlanTitle extends JExtendedFrame{
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
             conn.setAutoCommit(false);
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("INSERT INTO napitervfejlec (datum,muszak,munkahely,dszam,beosztas) VALUES ('" +
                       cfg.sqlDate(Datum.getDate()) + "','" +
                       ComboID(Muszak) + "','" +
@@ -290,7 +290,7 @@ public class DailyPlanTitle extends JExtendedFrame{
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
                 conn.setAutoCommit(false);
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 int i = 0;
                 while (i < Fejlec.getSelectedRowCount())
                 {
@@ -348,7 +348,7 @@ public class DailyPlanTitle extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT napitervfejlec.azon,napitervfejlec.datum,muszakok.megnevezes," +
                      "kosp.megnevezes,napitervfejlec.dszam,dtorzs.nev,beosztas.megnevezes FROM " +
                      "napitervfejlec INNER JOIN muszakok ON (napitervfejlec.muszak = muszakok.azon) " +
@@ -400,7 +400,7 @@ public class DailyPlanTitle extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {

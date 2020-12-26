@@ -373,7 +373,7 @@ public class WorkCenters extends JExtendedFrame{
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
                     conn.setAutoCommit(false);
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     sqlolvas("SELECT azon FROM szerszamok WHERE muhelykod = '" +
                              muhelyTabla.getValueAt(muhelyTabla.getSelectedRow(), 0).toString() + "'");
                     if (rSet.next())
@@ -417,7 +417,7 @@ public class WorkCenters extends JExtendedFrame{
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
                     conn.setAutoCommit(false);
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     sqlolvas("SELECT azon FROM muhelyek WHERE szam = '" +
                              Muhelyszam.getText() + "'");
                     if (rSet.next())
@@ -471,7 +471,7 @@ public class WorkCenters extends JExtendedFrame{
                 {
                     conn = DriverManager.getConnection(cfg.getsqlConn());
                     conn.setAutoCommit(false);
-                    stmt = conn.createStatement();
+                    stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                     sqlolvas("SELECT azon FROM muhelyek WHERE szam = '" +
                              Muhelyszam.getText() + "' AND azon <> '" +
                              muhelyTabla.getValueAt(muhelyTabla.getSelectedRow(), 0).toString() + "'");
@@ -515,7 +515,7 @@ public class WorkCenters extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {
@@ -603,7 +603,7 @@ public class WorkCenters extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             int hosz = muhelyFilter.getText().length();
             sqlolvas("SELECT muhelyek.azon,muhelyek.szam AS muhelyszam,muhelyek.megnevezes," +
                      "muhelyek.ktghely,kosp.szam,kosp.megnevezes AS kosp,muhelyek.gepszam," +

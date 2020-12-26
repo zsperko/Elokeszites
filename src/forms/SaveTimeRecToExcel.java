@@ -144,7 +144,7 @@ public class SaveTimeRecToExcel implements Runnable{
             tableHeaders.add("Oszlop2");
             Configuration cfg = new Configuration();
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlComm);
             while (rSet.next())
             {

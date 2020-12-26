@@ -306,7 +306,7 @@ public class AMaterialRequest extends JExtendedFrame implements TableModelListen
             try
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlupdate("DELETE anyagigenyek.* FROM anyagigenyek WHERE datum = '" + 
                           cfg.sqlDate(Datum.getDate()) + "' AND munkahely = '" +
                           ComboID(Munkahely) + "' AND muszak >= '" +
@@ -418,7 +418,7 @@ public class AMaterialRequest extends JExtendedFrame implements TableModelListen
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT anyagigenyek.azon,anyagigenyek.cikkszam,anyagigenyek.mennyiseg,"
                    + "anyagigenyek.megjegyzes,anyagigenyek.datum,muszakok.megnevezes FROM "
                    + "anyagigenyek INNER JOIN muszakok ON (anyagigenyek.muszak = muszakok.azon) "
@@ -495,7 +495,7 @@ public class AMaterialRequest extends JExtendedFrame implements TableModelListen
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {
@@ -597,7 +597,7 @@ public class AMaterialRequest extends JExtendedFrame implements TableModelListen
             }
             rSet = null;
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SHOW TABLES LIKE '" + tableName + "'");
             if (rSet.next())
             {
@@ -686,7 +686,7 @@ public class AMaterialRequest extends JExtendedFrame implements TableModelListen
         {
             rSet = null;
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             Calendar cal = Calendar.getInstance();
             Date datum = cal.getTime();
             sqlupdate("DELETE visszadando.* FROM visszadando");
@@ -798,7 +798,7 @@ public class AMaterialRequest extends JExtendedFrame implements TableModelListen
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
             conn.setAutoCommit(false);
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("UPDATE anyagigenyek SET mennyiseg = '" + value + "' " +
                       "WHERE azon = '" + index + "'");
             conn.commit();

@@ -237,7 +237,7 @@ public class Users extends JExtendedFrame{
             try
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlolvas("SELECT username, nev, password FROM users WHERE azon ='" +
                          value.toString() + "'");
                 rSet.first();
@@ -286,7 +286,7 @@ public class Users extends JExtendedFrame{
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
                 conn.setAutoCommit(false);
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 if (userList.getSelectedRow() != -1)
                 {
                     sqlupdate("UPDATE users SET username = '" + nickName.getText() + "'," +
@@ -335,7 +335,7 @@ public class Users extends JExtendedFrame{
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
                 conn.setAutoCommit(false);
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 if (RoleEnable.isSelected())
                 {
                     sqlupdate("INSERT INTO roles (urlapazon, userazon, role) VALUES ('" +
@@ -383,7 +383,7 @@ public class Users extends JExtendedFrame{
                     {
                         conn = DriverManager.getConnection(cfg.getsqlConn());
                         conn.setAutoCommit(false);
-                        stmt = conn.createStatement();
+                        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                         sqlupdate("INSERT INTO deletedusers (deletedusers.azon,deletedusers.nev,deletedusers.username) " +
                                   "SELECT users.azon,users.nev,users.username FROM users WHERE users.azon = '" +
                                   userList.getValueAt(userList.getSelectedRow(), 0).toString() + "'");
@@ -421,7 +421,7 @@ public class Users extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT azon, cim FROM forms ORDER BY cim");
             if (rSet.next())
             {
@@ -438,7 +438,7 @@ public class Users extends JExtendedFrame{
                             try
                             {
                                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                                stmt = conn.createStatement();
+                                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                                 sqlolvas("SELECT role FROM roles WHERE urlapazon = '" +
                                 ComboID(comboBox) + "' AND " +
                                 "userazon = '" + userList.getValueAt(userList.getSelectedRow(), 0).toString() + "'");
@@ -537,7 +537,7 @@ public class Users extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT azon, username, nev FROM users ORDER BY nev");
             rSet.last();
             int count = rSet.getRow();

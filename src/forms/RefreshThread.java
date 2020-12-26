@@ -68,7 +68,7 @@ public class RefreshThread implements Runnable{
             rSet = null;
             conn = DriverManager.getConnection(cfg.getsqlConn());
             conn.setAutoCommit(false);
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rSet = stmt.executeQuery("SHOW TABLES LIKE '" + TableName + "'");
             if (rSet.next())
             {

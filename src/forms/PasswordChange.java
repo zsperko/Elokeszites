@@ -185,7 +185,7 @@ public class PasswordChange extends JExtendedFrame{
         try
         {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlolvas("SELECT nev, username FROM users WHERE azon = '" +
                          Integer.toString(cfg.getcurrentUser()) + "'");
                 rSet.first();
@@ -211,7 +211,7 @@ public class PasswordChange extends JExtendedFrame{
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
                 conn.setAutoCommit(false);
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlolvas("SELECT username FROM users WHERE azon = '" + Integer.toString(cfg.getcurrentUser()) +
                          "' AND password = MD5('" + oldPassStr + "')");
                 if (rSet.next())

@@ -239,7 +239,7 @@ public class ExcelTable extends JExtendedFrame{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas("SELECT leltarnaplo.azon,leltarnaplo.cikkszam,leltarnaplo.mennyiseg," +
                      "raktarak.raktarnev FROM leltarnaplo " +
                      "INNER JOIN raktarak ON (leltarnaplo.raktarkod = raktarak.azon) " +

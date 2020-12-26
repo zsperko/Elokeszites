@@ -219,7 +219,7 @@ public class ShopCalendar extends JExtendedFrame implements TableModelListener{
             try
             {
                 conn = DriverManager.getConnection(cfg.getsqlConn());
-                stmt = conn.createStatement();
+                stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
                 sqlupdate("DELETE uzeminaptar.* FROM uzeminaptar WHERE datum > '"
                         + cfg.sqlDate(Datum.getDate()) + "' AND gepazon = '"
                         + ComboID(Machines) + "'");
@@ -278,7 +278,7 @@ public class ShopCalendar extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             String sqlCmd = "SELECT uzeminaptar.azon,uzeminaptar.datum,muszakok.megnevezes,"
                           + "uzeminaptar.termeles FROM uzeminaptar "
                           + "INNER JOIN muszakok ON (uzeminaptar.muszak = muszakok.azon) "
@@ -353,7 +353,7 @@ public class ShopCalendar extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             String sqlCmd = "SELECT muhelyek.azon FROM muhelyek";
             sqlolvas(sqlCmd);
             rSet.last();
@@ -394,7 +394,7 @@ public class ShopCalendar extends JExtendedFrame implements TableModelListener{
         try
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlolvas(sqlcmd);
             if (rSet.next())
             {
@@ -459,7 +459,7 @@ public class ShopCalendar extends JExtendedFrame implements TableModelListener{
         {
             conn = DriverManager.getConnection(cfg.getsqlConn());
             conn.setAutoCommit(false);
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             sqlupdate("UPDATE uzeminaptar SET termeles = '" + value + "' " +
                       "WHERE azon = '" + index + "'");
             conn.commit();
