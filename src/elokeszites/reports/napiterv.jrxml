@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="napiterv" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="datum" class="java.lang.String"/>
+	<parameter name="uzemfilter" class="java.lang.String"/>
+	<parameter name="uzemnev" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 
+  gr_muveletterv.grszam,
+  muhelyek.szam,
+  gyartasirend.cikkszam,
+  gyartasirend.mennyiseg,
+  gyartasirend.maradek,
+  temp_napiterv.de,
+  temp_napiterv.du,
+  temp_napiterv.ej
+FROM
+  temp_napiterv
+  INNER JOIN gr_muveletterv ON (temp_napiterv.grmuvazon = gr_muveletterv.azon)
+  INNER JOIN muhelyek ON (temp_napiterv.muhelyazon = muhelyek.azon)
+  INNER JOIN gyartasirend ON (gr_muveletterv.grszam = gyartasirend.rendszam)
+ORDER BY
+  muhelyek.sorrend,
+  gyartasirend.cikkszam]]>
+	</queryString>
+	<field name="grszam" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="szam" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cikkszam" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mennyiseg" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="maradek" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="de" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="du" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ej" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="68" y="41" width="38" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gép]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="64" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rendelés]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="40" width="82" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cikkszám]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="38" width="30" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terv]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{datum}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="19"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OWI ZALA BT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="0" width="129" height="19"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAPI ÜTEMTERV]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="0" width="114" height="19"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{uzemnev}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="54" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="194" y="38" width="34" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Össz.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="39" width="32" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kész]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="38" width="44" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tény]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="22" width="77" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Délután]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="22" width="77" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Éjszaka]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="38" width="44" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tény]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="38" width="30" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="458" y="39" width="30" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="23" width="77" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Délelőtt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="491" y="39" width="44" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tény]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="64" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{grszam}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement x="234" y="0" width="37" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{mennyiseg}-$F{maradek}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="194" y="0" width="34" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{mennyiseg}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="276" y="0" width="30" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{du}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="309" y="0" width="44" height="16"/>
+			</rectangle>
+			<textField pattern="#,##0">
+				<reportElement x="370" y="0" width="30" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{ej}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="463" y="0" width="30" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{de}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="403" y="0" width="44" height="16"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="496" y="0" width="44" height="16"/>
+			</rectangle>
+			<textField>
+				<reportElement x="68" y="0" width="38" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{szam}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="109" y="0" width="82" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cikkszam}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

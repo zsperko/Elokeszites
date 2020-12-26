@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
+<!-- 2016-01-24T08:59:43 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc83fe5f-d952-4e47-855e-1e48f18ab008">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Elokeszites"/>
+	<parameter name="user" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 
+  muhelyek.szam,
+  szerszamok.szam AS aktszerszam,
+  szerszamok1.szam AS kovszerszam,
+  szerszamokmuhelyben.bdatum,
+  muszakok.megnevezes,
+  szerszamokmuhelyben.feszek
+FROM
+  szerszamokmuhelyben
+  INNER JOIN muhelyek ON (szerszamokmuhelyben.muhelyazon = muhelyek.azon)
+  INNER JOIN szerszamok ON (szerszamokmuhelyben.szerszamazon = szerszamok.azon)
+  INNER JOIN szerszamok szerszamok1 ON (szerszamokmuhelyben.kovszerszam = szerszamok1.azon)
+  INNER JOIN muszakok ON (szerszamokmuhelyben.muszak = muszakok.azon)
+ORDER BY szam]]>
+	</queryString>
+	<field name="szam" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aktszerszam" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kovszerszam" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bdatum" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="megnevezes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="feszek" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="gep">
+		<groupExpression><![CDATA[$F{szam}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="61" height="20" uuid="22a4633a-d52e-4ce7-80a8-ab6b02d57359"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{szam}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="1">
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" uuid="8fd83645-d0f3-4c96-82da-9b206f3f0c2a"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="111" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="23" uuid="6e0273ef-d2b8-4eb2-9f3f-de3714fb5c5c"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OWI ZALA BT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="0" width="255" height="23" uuid="1a4d7978-ba48-48d1-aed5-5d2bbc50759f"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SZERSZÁMLISTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="91" width="61" height="20" uuid="ded9f0ae-bb55-4304-b613-388fa30dd76e"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gépszám]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="69" width="65" height="41" uuid="32f14ac6-f699-4711-a07b-7e9200da793d"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aktuális szerszám]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="219" y="70" width="69" height="41" uuid="b73fb172-033a-4d66-9889-e276f04a7759"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Következő szerszám]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="70" width="177" height="41" uuid="640d1ba2-22b7-43c3-854b-35e2c0430f93"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Szerszámcsere tervezett időpontja]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="110" width="555" height="1" uuid="24081047-8292-45c3-ac9f-6d0d4c297cd9"/>
+			</line>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="966d2ed3-411e-4da0-a6c7-746c591c99c5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{user}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="68" y="90" width="73" height="20" uuid="277795f7-b729-474b-afa9-1ec090b1a1ee"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Szerszámtár]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="149" y="0" width="65" height="20" uuid="e95e5796-c753-4e8f-92fc-64dd8aac278e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{aktszerszam}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="298" y="0" width="77" height="20" uuid="f7a18123-9e8f-4492-8c5a-b911e0d7ae77"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{bdatum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="381" y="0" width="94" height="20" uuid="289b3c95-ca34-4bf8-aa5a-3f883675213d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{megnevezes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="0" width="73" height="20" uuid="1925b398-0e15-4a1c-850d-c45f69981826"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{feszek}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="0" width="69" height="20" uuid="06ee3f72-32aa-419f-9922-2582cb628990"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kovszerszam}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="0" y="0" width="100" height="20" uuid="85764b0b-3c63-4fd8-89bf-950fb3e584cf"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="afc9c246-e571-42cb-b453-d1c52fcf7cbe"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Oldal "+$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="fb8a7c00-7ce0-48b0-a904-73a0b80f5bf3"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} + "."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

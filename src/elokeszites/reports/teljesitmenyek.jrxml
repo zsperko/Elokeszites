@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teljesitmenyek" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="datum" class="java.lang.String"/>
+	<parameter name="user" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT dszam,nev,muszak,terv,teny FROM
+(
+SELECT teljesitmenyek.dszam,dtorzs.nev,seged.megnevezes as muszak,
+(sum((teljesitmenyek.tervmennyiseg * gr_muveletterv.szemelyido)) / 480) AS terv,
+(sum((teljesitmenyek.mennyiseg * gr_muveletterv.szemelyido)) / 480) AS teny
+FROM teljesitmenyek INNER JOIN dtorzs ON (teljesitmenyek.dszam = dtorzs.dszam)
+INNER JOIN gr_muveletterv ON (teljesitmenyek.grszam = gr_muveletterv.grszam) AND
+(teljesitmenyek.muvszam = gr_muveletterv.muveletkapcsolo) INNER JOIN
+(SELECT napitervfejlec.dszam,muszakok.megnevezes FROM napitervfejlec
+INNER JOIN muszakok ON (napitervfejlec.muszak = muszakok.azon)
+WHERE napitervfejlec.datum = $P{datum} GROUP BY
+napitervfejlec.dszam,muszakok.megnevezes UNION ALL
+SELECT napiterv.dszam,muszakok.megnevezes FROM napiterv
+INNER JOIN muszakok ON (napiterv.muszak = muszakok.azon)
+WHERE napiterv.datum = $P{datum} GROUP BY
+napiterv.dszam,muszakok.megnevezes)
+seged ON (teljesitmenyek.dszam = seged.dszam) WHERE
+teljesitmenyek.datum = $P{datum}
+GROUP BY
+teljesitmenyek.dszam,dtorzs.nev,seged.megnevezes ORDER BY
+seged.megnevezes,dtorzs.nev) seged
+WHERE terv <> 0]]>
+	</queryString>
+	<field name="dszam" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nev" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="muszak" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="teny" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="terv" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="135" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="25"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OWI ZALA BT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="0" width="259" height="25"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teljesítmények]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="68" width="62" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dátum:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{user}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="68" width="230" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{datum}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="115" width="132" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dolgozószám/Név]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="115" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Műszak]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="115" width="142" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="115" width="153" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tény]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="134" width="555" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="27" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{dszam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nev}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{muszak}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="249" y="0" width="142" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{terv}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="402" y="0" width="153" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{teny}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

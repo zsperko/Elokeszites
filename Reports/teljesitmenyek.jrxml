@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
+<!-- 2016-01-24T08:17:29 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teljesitmenyek" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fb5464db-cd1e-424b-b909-a837a2340258">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Elokeszites"/>
+	<parameter name="datum" class="java.lang.String"/>
+	<parameter name="user" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT dszam,nev,muszak,terv,teny FROM
+(
+SELECT teljesitmenyek.dszam,dtorzs.nev,seged.megnevezes as muszak,
+(sum((teljesitmenyek.tervmennyiseg * gr_muveletterv.szemelyido)) / 480) AS terv,
+(sum((teljesitmenyek.mennyiseg * gr_muveletterv.szemelyido)) / 480) AS teny
+FROM teljesitmenyek INNER JOIN dtorzs ON (teljesitmenyek.dszam = dtorzs.dszam)
+INNER JOIN gr_muveletterv ON (teljesitmenyek.grszam = gr_muveletterv.grszam) AND
+(teljesitmenyek.muvszam = gr_muveletterv.muveletkapcsolo) INNER JOIN
+(SELECT napitervfejlec.dszam,muszakok.megnevezes FROM napitervfejlec
+INNER JOIN muszakok ON (napitervfejlec.muszak = muszakok.azon)
+WHERE napitervfejlec.datum = $P{datum} GROUP BY
+napitervfejlec.dszam,muszakok.megnevezes UNION ALL
+SELECT napiterv.dszam,muszakok.megnevezes FROM napiterv
+INNER JOIN muszakok ON (napiterv.muszak = muszakok.azon)
+WHERE napiterv.datum = $P{datum} GROUP BY
+napiterv.dszam,muszakok.megnevezes)
+seged ON (teljesitmenyek.dszam = seged.dszam) WHERE
+teljesitmenyek.datum = $P{datum}
+GROUP BY
+teljesitmenyek.dszam,dtorzs.nev,seged.megnevezes ORDER BY
+seged.megnevezes,dtorzs.nev) seged
+WHERE terv <> 0]]>
+	</queryString>
+	<field name="dszam" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nev" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="muszak" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="teny" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="terv" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="135" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="25" uuid="1ac75cf0-0ac0-4e2d-b6ef-87afad61bb5a"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OWI ZALA BT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="0" width="259" height="25" uuid="dedad34b-13af-4162-b8b2-ee565eba541a"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teljesítmények]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="68" width="62" height="20" uuid="48a2d3e0-a3a7-4221-83cd-da24389c090e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dátum:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="001edb2f-5c1f-41d2-9a6e-2a5007bf984e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{user}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="68" width="230" height="20" uuid="c5d292dc-00bf-4667-a2ac-b5371c1231c6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{datum}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="115" width="132" height="20" uuid="799e4b5a-257d-4667-8bd3-b1494dddede9"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dolgozószám/Név]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="115" width="100" height="20" uuid="d836fd42-3b0a-47d4-9e20-cc45c12e2481"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Műszak]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="115" width="142" height="20" uuid="a9458ad4-7879-4402-914c-a97bb0b1739b"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="115" width="153" height="20" uuid="3ead664f-e59b-4b6a-a38b-fba4e8a865b2"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tény]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="134" width="555" height="1" uuid="39d67511-6184-4f5b-af3e-2b2071876d26"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="27" height="20" uuid="e0580116-b4b3-4049-b226-98e9ca1c5ff1"/>
+				<textFieldExpression><![CDATA[$F{dszam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="0" width="100" height="20" uuid="795244f3-cc00-4946-918c-986c3592b10b"/>
+				<textFieldExpression><![CDATA[$F{nev}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="0" width="100" height="20" uuid="8c34a370-3fc3-4b56-9fe6-7865d7c202e1"/>
+				<textFieldExpression><![CDATA[$F{muszak}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="249" y="0" width="142" height="20" uuid="9322ded7-7fa6-49d2-9591-d38c9847d8d8"/>
+				<textFieldExpression><![CDATA[$F{terv}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="402" y="0" width="153" height="20" uuid="0786febf-925e-4203-89be-359caa951a7b"/>
+				<textFieldExpression><![CDATA[$F{teny}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

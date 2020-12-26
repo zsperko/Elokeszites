@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="napitervfejlec" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="datum" class="java.lang.String"/>
+	<parameter name="muszakfilter" class="java.lang.String"/>
+	<parameter name="uzemfilter" class="java.lang.String"/>
+	<parameter name="muszaknev" class="java.lang.String"/>
+	<parameter name="uzemnev" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT dszam,nev,megnevezes,tipus FROM
+(
+SELECT 
+  napitervfejlec.dszam,
+  dtorzs.nev,
+  beosztas.megnevezes,
+  0 AS tipus
+FROM
+  napitervfejlec
+  INNER JOIN beosztas ON (napitervfejlec.beosztas = beosztas.azon)
+  INNER JOIN dtorzs ON (napitervfejlec.dszam = dtorzs.dszam)
+  INNER JOIN muhelyek ON (napitervfejlec.munkahely = muhelyek.azon)
+WHERE napitervfejlec.datum = $P{datum} AND 
+       napitervfejlec.muszak = $P{muszakfilter} AND 
+       muhelyek.ktghely = $P{uzemfilter}
+UNION ALL
+SELECT 
+  dtorzs.dszam,
+  dtorzs.nev,
+  kosp.megnevezes,
+  1 AS tipus
+FROM
+  muszakbeosztas
+  INNER JOIN dtorzs ON (muszakbeosztas.dszam = dtorzs.dszam)
+  INNER JOIN dolgozok ON (dtorzs.dszam = dolgozok.dszam)
+  INNER JOIN kosp ON (dolgozok.munkahely = kosp.azon)
+WHERE muszakbeosztas.datum = $P{datum} AND muszakbeosztas.muszak = $P{muszakfilter} AND
+kosp.azon = $P{uzemfilter}) seged
+ORDER BY tipus,nev]]>
+	</queryString>
+	<field name="dszam" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nev" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="megnevezes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipus" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Tipus">
+		<groupExpression><![CDATA[$F{tipus}]]></groupExpression>
+		<groupFooter>
+			<band height="20"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="94" width="149" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dolgozószám / Név]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="154" y="94" width="191" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beosztás]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="49" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dátum:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="49" y="50" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{datum}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="154" y="50" width="49" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Műszak:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="203" y="50" width="158" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{muszaknev}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="23"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OWI ZALA BT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="0" width="255" height="23"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAPI ÜTEMTERV]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="441" y="0" width="114" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{uzemnev}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="114" width="555" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="34" y="0" width="115" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nev}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="34" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{dszam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="154" y="0" width="191" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{megnevezes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

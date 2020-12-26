@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
+<!-- 2016-01-24T09:01:51 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="napiterv" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8e2460bc-3715-4a67-9194-dca181e98b10">
+	<parameter name="datum" class="java.lang.String"/>
+	<parameter name="uzemfilter" class="java.lang.String"/>
+	<parameter name="uzemnev" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 
+  gr_muveletterv.grszam,
+  muhelyek.szam,
+  gyartasirend.cikkszam,
+  gyartasirend.mennyiseg,
+  gyartasirend.maradek,
+  temp_napiterv.de,
+  temp_napiterv.du,
+  temp_napiterv.ej
+FROM
+  temp_napiterv
+  INNER JOIN gr_muveletterv ON (temp_napiterv.grmuvazon = gr_muveletterv.azon)
+  INNER JOIN muhelyek ON (temp_napiterv.muhelyazon = muhelyek.azon)
+  INNER JOIN gyartasirend ON (gr_muveletterv.grszam = gyartasirend.rendszam)
+ORDER BY
+  muhelyek.sorrend,
+  gyartasirend.cikkszam]]>
+	</queryString>
+	<field name="grszam" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="szam" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cikkszam" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mennyiseg" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="maradek" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="de" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="du" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ej" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="68" y="41" width="38" height="14" uuid="0ddaabce-04a6-403f-bf48-3fb0a97735a2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gép]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="64" height="14" uuid="732b992e-fd87-4016-8dda-9f38f63dc26b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rendelés]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="40" width="82" height="15" uuid="8cd80fdb-4633-4de9-8c27-636867aa0e9b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cikkszám]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="38" width="30" height="14" uuid="6ac85611-d556-41ff-b9ad-7f5b938a3ffb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terv]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="416f9d47-b052-4c05-84ae-419ea01dcad1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{datum}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="19" uuid="07d625ac-b217-41f9-84cb-2b0a7ef0aed0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OWI ZALA BT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="0" width="129" height="19" uuid="f83c54b2-9187-41a5-a0ec-bd8181b52001"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAPI ÜTEMTERV]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="0" width="114" height="19" uuid="2aa5e274-2d79-4e35-9504-55f301ab54c1"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{uzemnev}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="54" width="555" height="1" uuid="c458aa15-3704-4113-8925-110823f0a8c5"/>
+			</line>
+			<staticText>
+				<reportElement x="194" y="38" width="34" height="16" uuid="f2c13f87-0a35-46e9-8221-6df7fab5c05e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Össz.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="39" width="32" height="15" uuid="89c4f4f5-96a6-4e6d-b160-2af3ec9e11be"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kész]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="38" width="44" height="14" uuid="656c2465-e03b-44ac-828c-9ece3d7d2b47"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tény]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="22" width="77" height="15" uuid="49db57f0-0aaf-4736-bad4-8015d3e4dafa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Délután]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="22" width="77" height="15" uuid="d13bb9a2-1206-4adc-8912-1134e82391c0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Éjszaka]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="38" width="44" height="14" uuid="c9c08a4f-e2e5-4e15-abf2-1052cc7c3f37"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tény]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="38" width="30" height="14" uuid="da0b9d76-0f5d-454d-a7e8-d71a6fed186d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="458" y="39" width="30" height="14" uuid="de2614cb-614a-4e20-a82c-a57c3b1d2cb1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="23" width="77" height="15" uuid="7f1ac2c6-b7c2-4c23-90c3-59594ae69c49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Délelőtt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="491" y="39" width="44" height="14" uuid="e2efbdd6-e8d7-489a-913b-55d69d2e6cac"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tény]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="64" height="16" uuid="79f8112d-0534-4659-9a02-1d4522957091"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grszam}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement x="234" y="0" width="37" height="16" uuid="f3568fce-6a38-4ba7-b728-a899791dbd7f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mennyiseg}-$F{maradek}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="194" y="0" width="34" height="16" uuid="e809d6df-49f1-4563-86e2-f04bf2c5e9f5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mennyiseg}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="276" y="0" width="30" height="16" uuid="401c18f7-78c4-4b56-865f-229a699ed56d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{du}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="309" y="0" width="44" height="16" uuid="43d9f455-7be6-490f-99de-a3d0afa8cc18"/>
+			</rectangle>
+			<textField pattern="#,##0">
+				<reportElement x="370" y="0" width="30" height="16" uuid="2fbf1be0-2835-4041-b118-3bd2b6b318bb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ej}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="463" y="0" width="30" height="16" uuid="b4a5aeec-6a2b-4a42-b4b4-891e153d86cb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{de}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="403" y="0" width="44" height="16" uuid="ed357b41-2e75-4d34-8982-9eab88f77a44"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="496" y="0" width="44" height="16" uuid="a333ad1b-9b15-4d5b-a61d-94b6eeeb2088"/>
+			</rectangle>
+			<textField>
+				<reportElement x="68" y="0" width="38" height="16" uuid="8439c976-883b-4a83-8957-afb9036cfd99"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{szam}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="109" y="0" width="82" height="16" uuid="5a6eb07c-2d80-408f-81eb-800fa4237e40"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cikkszam}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
